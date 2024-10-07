@@ -16,7 +16,7 @@ export default function RegisterPage() {
   })
 
   const registerHandler = (dataToPost: RegisterUserInfo) => {
-    console.log(dataToPost)
+    // console.log(dataToPost)
   }
 
   return (

@@ -1,19 +1,20 @@
 "use client"
 
 import { customTwm } from "@/utils/custom-tailwind-merge"
+import { getToken } from "next-auth/jwt"
 import { useSession } from "next-auth/react"
 import React from "react"
 import { twMerge } from "tailwind-merge"
 
 export default function Header() {
-  const { data } = useSession()
-  // console.log(data, "from header")
+  const session = useSession()
+  console.log(session, "from header")
 
   const customTwmValue = customTwm("text-primary text-big")
-  console.log("from custom -> ", customTwmValue)
+  // console.log("from custom -> ", customTwmValue)
 
   const twMergeValue = twMerge("text-primary text-big")
-  console.log("from default -> ", twMergeValue)
+  // console.log("from default -> ", twMergeValue)
 
   return (
     <div className="container">

@@ -2,18 +2,15 @@
 
 import { loginUser } from "@/app/services/api-requests"
 import { LoginCredentials } from "@/types/user-related-types"
+import { signIn } from "next-auth/react"
 import React, { useState } from "react"
 
 export default function LoginPage() {
   const [loginUserInfo, setLoginUserInfo] = useState<LoginCredentials>({ email: "", password: "" })
 
   const loginHandler = async (dataToPost: LoginCredentials) => {
-    console.log(dataToPost)
-
     try {
-      const response = await loginUser(dataToPost)
-
-      console.log(response)
+      const response = await signIn("credentials", dataToPost)
     } catch (error) {
       console.error(error)
     }
