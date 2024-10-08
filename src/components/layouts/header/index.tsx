@@ -8,7 +8,6 @@ import { twMerge } from "tailwind-merge"
 
 export default function Header() {
   const session = useSession()
-  console.log(session, "from header")
 
   const customTwmValue = customTwm("text-primary text-big")
   // console.log("from custom -> ", customTwmValue)

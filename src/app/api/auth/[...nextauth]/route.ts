@@ -26,7 +26,6 @@ const authOptions: NextAuthOptions = {
           })
 
           const user = await res.json()
-          console.log(user, "from authorize")
           return user
         } catch (error) {
           console.log(error)
@@ -44,14 +43,20 @@ const authOptions: NextAuthOptions = {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   },
   callbacks: {
-    async session({ session, token }) {
-      session.user = token as any
+    async session({ session, token, trigger, user }) {
+      session.jwt = token.jwt
+      session.user = token.user
+
+      console.log({ session, token, trigger, user }, "from session callback")
 
       return session
     },
 
     async jwt({ user, account, token, profile, session, trigger }) {
-      console.log({ user, account, token, profile, session, trigger })
+      token.jwt = user?.jwt
+      token.user = user?.user
+
+      console.log({ user, account, token, profile, session, trigger }, "from jwt cb")
 
       return token
     },
