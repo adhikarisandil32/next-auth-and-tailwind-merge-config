@@ -2,6 +2,7 @@ import NextAuth from "next-auth/next"
 import type { NextAuthOptions, User } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { pages } from "next/dist/build/templates/app-page"
+import type { JWT } from "next-auth/jwt"
 // import Credentials from "next-auth/providers/credentials"
 
 const authOptions: NextAuthOptions = {
@@ -44,19 +45,23 @@ const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session, token, trigger, user }) {
-      session.jwt = token.jwt
-      session.user = token.user
+      if (token) {
+        session.user.jwt = token.jwt as string
+        session.user.user = token.user as {}
+      }
 
-      console.log({ session, token, trigger, user }, "from session callback")
+      // console.log({ session, token, trigger, user }, "from session cb")
 
       return session
     },
 
     async jwt({ user, account, token, profile, session, trigger }) {
-      token.jwt = user?.jwt
-      token.user = user?.user
+      if (user) {
+        token.jwt = user.jwt
+        token.user = user.user
+      }
 
-      console.log({ user, account, token, profile, session, trigger }, "from jwt cb")
+      // console.log({ user, account, token, profile, session, trigger }, "from jwt cb")
 
       return token
     },

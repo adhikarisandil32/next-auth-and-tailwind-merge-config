@@ -1,0 +1,11 @@
+{
+  "remaining_tasks": [
+    {
+      "title": "getting session on client side",
+      "description": "making use of getSession or useSession to get the session data",
+      "completed": "false",
+      "issueDate": "2024-10-10T03:20:00+05:45"
+    }
+  ],
+  "completed_tasks": []
+}

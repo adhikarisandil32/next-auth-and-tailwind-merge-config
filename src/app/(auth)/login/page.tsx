@@ -2,11 +2,15 @@
 
 import { loginUser } from "@/app/services/api-requests"
 import { LoginCredentials } from "@/types/user-related-types"
-import { signIn } from "next-auth/react"
+import { getToken } from "next-auth/jwt"
+import { signIn, useSession } from "next-auth/react"
 import React, { useState } from "react"
 
 export default function LoginPage() {
   const [loginUserInfo, setLoginUserInfo] = useState<LoginCredentials>({ email: "", password: "" })
+
+  const session = useSession()
+  console.log(session, "session from loginPage")
 
   const loginHandler = async (dataToPost: LoginCredentials) => {
     try {
