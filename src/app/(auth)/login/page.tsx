@@ -4,17 +4,24 @@ import { loginUser } from "@/app/services/api-requests"
 import { LoginCredentials } from "@/types/user-related-types"
 import { getToken } from "next-auth/jwt"
 import { signIn, useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import React, { useState } from "react"
 
 export default function LoginPage() {
   const [loginUserInfo, setLoginUserInfo] = useState<LoginCredentials>({ email: "", password: "" })
-
+  const router = useRouter()
   const session = useSession()
-  console.log(session, "session from loginPage")
+  console.log(session, "session from loginPage") //look on the browser console
 
   const loginHandler = async (dataToPost: LoginCredentials) => {
     try {
-      const response = await signIn("credentials", dataToPost)
+      const response = await signIn("credentials", { ...dataToPost, redirect: false })
+
+      console.log(response, "sign in response")
+
+      if (response?.ok) {
+        router.push("/")
+      }
     } catch (error) {
       console.error(error)
     }

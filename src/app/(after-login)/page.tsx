@@ -1,22 +1,21 @@
-"use client"
-
 import { getServerSession } from "next-auth"
-import { getSession, useSession } from "next-auth/react"
-import React from "react"
+// import { useSession } from "next-auth/react"
+import React, { useEffect } from "react"
+import { authOptions } from "../api/auth/[...nextauth]/route"
+import { getSession } from "next-auth/react"
 
-export default function HomePage() {
+export default async function HomePage() {
   // const session = await getServerSession()
   // const session = await getSession()
-  const func = async () => {
-    const session = await getSession()
 
-    console.log(session, "useSession from homepage")
-  }
+  const response = await getServerSession(authOptions)
 
-  func()
+  console.log(response, "frm login page")
+
+  // console.log(session, "from useSession and homepage")
 
   // console.log(session, "session from homepage")
-  // console.log(session, "getSession from homepage")
+  // console.log(session, "getServerSession from homepage")
 
   return (
     <div className="text-center">

@@ -2,10 +2,9 @@ import NextAuth from "next-auth/next"
 import type { NextAuthOptions, User } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { pages } from "next/dist/build/templates/app-page"
-import type { JWT } from "next-auth/jwt"
 // import Credentials from "next-auth/providers/credentials"
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -14,6 +13,7 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req): Promise<User | null> {
+        console.log({ credentials, req }, "from authorize")
         try {
           const res = await fetch("http://localhost:1337/api/auth/local", {
             method: "POST",
