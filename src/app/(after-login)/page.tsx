@@ -18,9 +18,13 @@ export default async function HomePage() {
   // console.log(session, "getServerSession from homepage")
 
   return (
-    <div className="text-center">
-      <p className="text-3xl">This is a home page.</p>
-      <p>Only Logged In Users can have access</p>
+    <div className="container">
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="text-center">
+          <p className="text-3xl">This is a home page.</p>
+          <p>Only Logged In Users can have access</p>
+        </div>
+      </div>
     </div>
   )
 }
